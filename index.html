@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wellcome To The Wall </title>
-  <meta name="description" content="A wall of sign-up links for freelance marketplaces, portfolios and networks.">
+  <title>The Wall | Discover More. Explore Everything.</title>
+  <meta name="description" content="Discover websites, digital platforms and online services around the world. Explore technology, jobs, education, shopping, finance, creativity and more.">
+  <meta name="theme-color" content="#f3f1ee">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
@@ -97,24 +98,64 @@
 </head>
 <body>
   <div class="wrap">
+
     <header>
-      <div class="logo">The Wall</div>
-      <button id="themeBtn" type="button" aria-label="Switch between light and dark mode">🌙 Dark mode</button>
+      <div class="brand">
+        <div class="brand-name">The Wall</div>
+        <div class="brand-by">A product by AIM</div>
+      </div>
+
+      <button id="themeBtn" type="button">
+        🌙 Dark mode
+      </button>
     </header>
 
     <section class="hero">
-      <h1>Every place to start freelancing, on one wall.</h1>
-      <p>Pick a platform, sign up, and get your first client. Search by name or filter by what you do.</p>
-      <input id="search" type="search" placeholder="Search platforms…" aria-label="Search platforms">
+      <span class="eyebrow">Explore the digital world</span>
+
+      <h1>Discover more. Explore everything.</h1>
+
+      <p>
+        Find useful websites, platforms and digital services
+        from around the world — all in one place.
+        Explore, discover and connect with opportunities
+        across different categories.
+      </p>
+
+      <div class="search-wrap">
+        <input
+          id="search"
+          type="search"
+          placeholder="Search websites, services or categories..."
+          aria-label="Search websites, services or categories"
+        >
+        <p class="search-hint">
+          Search by platform name or category.
+        </p>
+      </div>
     </section>
 
-    <nav class="filters" id="filters" aria-label="Categories"></nav>
-    <p class="count" id="count"></p>
-
     <main>
+      <h2 class="section-heading">Explore categories</h2>
+
+      <nav
+        class="filters"
+        id="filters"
+        aria-label="Website categories"
+      ></nav>
+
+      <p class="count" id="count" aria-live="polite"></p>
+
       <div id="wall"></div>
-      <div class="morewrap"><button id="more" type="button">Show more</button></div>
-      <p id="empty">No platforms match your search. Try a different word or choose “All”.</p>
+
+      <div class="morewrap">
+        <button id="more" type="button">Show more</button>
+      </div>
+
+      <p id="empty">
+        No websites match your search.
+        Try another keyword or select All.
+      </p>
     </main>
 
     <footer>

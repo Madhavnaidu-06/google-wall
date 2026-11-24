@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wellcome To The Wall </title>
+  <meta name="description" content="A wall of sign-up links for freelance marketplaces, portfolios and networks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f1ee;
+      --surface: #ffffff;
+      --text: #1b1a19;
+      --muted: #6a6762;
+      --line: #dcd8d2;
+      --accent: #2547d0;
+      --accent-text: #ffffff;
+      color-scheme: light;
+    }
+    :root[data-theme="dark"] {
+      --bg: #141516;
+      --surface: #1e2022;
+      --text: #f1efeb;
+      --muted: #a29e97;
+      --line: #34373a;
+      --accent: #7f9bff;
+      --accent-text: #101114;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      transition: background .25s, color .25s;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    header { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+    .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -.02em; }
+    #themeBtn {
+      font: inherit; font-size: .9rem; cursor: pointer;
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px;
+    }
+
+    .hero { padding: 48px 0 24px; }
+    h1 { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.03em; margin: 0 0 14px; font-weight: 800; max-width: 14em; }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 34em; margin: 0 0 26px; }
+    #search {
+      width: 100%; max-width: 440px; font: inherit; font-size: 1rem;
+      padding: 13px 18px; border-radius: 12px;
+      border: 1px solid var(--line); background: var(--surface); color: var(--text);
+    }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 22px; }
+    .filters button {
+      font: inherit; font-size: .9rem; cursor: pointer;
+      padding: 7px 15px; border-radius: 999px;
+      border: 1px solid var(--line); background: transparent; color: var(--text);
+    }
+    .filters button.active { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+
+    /* The wall: cards stagger like bricks */
+    #wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; padding-bottom: 40px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+      padding: 18px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .card:nth-child(even) { margin-top: 18px; }
+    .card .top { display: flex; align-items: center; gap: 12px; }
+    .mark {
+      width: 40px; height: 40px; border-radius: 8px; flex: none;
+      display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 1.1rem;
+    }
+    .card h3 { margin: 0; font-size: 1.05rem; }
+    .tag { font-size: .8rem; color: var(--muted); }
+    .card p { margin: 0; color: var(--muted); font-size: .92rem; flex: 1; }
+    .card a {
+      align-self: flex-start; text-decoration: none; font-weight: 600; font-size: .92rem;
+      background: var(--accent); color: var(--accent-text); padding: 8px 16px; border-radius: 8px;
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .count { color: var(--muted); font-size: .9rem; margin: 0 0 14px; }
+    .morewrap { text-align: center; padding-bottom: 40px; }
+    #more { font: inherit; cursor: pointer; padding: 11px 26px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+    #wall { padding-bottom: 20px !important; }
+    #empty { display: none; color: var(--muted); padding: 30px 0; }
+
+    footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); font-size: .9rem; }
+
+    @media (max-width: 520px) { .card:nth-child(even) { margin-top: 0; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">The Wall</div>
+      <button id="themeBtn" type="button" aria-label="Switch between light and dark mode">🌙 Dark mode</button>
+    </header>
+
+    <section class="hero">
+      <h1>Every place to start freelancing, on one wall.</h1>
+      <p>Pick a platform, sign up, and get your first client. Search by name or filter by what you do.</p>
+      <input id="search" type="search" placeholder="Search platforms…" aria-label="Search platforms">
+    </section>
+
+    <nav class="filters" id="filters" aria-label="Categories"></nav>
+    <p class="count" id="count"></p>
+
+    <main>
+      <div id="wall"></div>
+      <div class="morewrap"><button id="more" type="button">Show more</button></div>
+      <p id="empty">No platforms match your search. Try a different word or choose “All”.</p>
+    </main>
+
+    <footer>
+      <p>Links go to each platform’s official site. Sign-up rules and fees change, so check each site before you join.</p>
+      <p>© <span id="year"></span> The Wall</p>
+    </footer>
+  </div>
+
+  <script>
+    // Format: "Name" (site guessed as name.com) or "Name|real-domain.com/path"
+    const RAW = {
+      "Freelance": "Upwork;Fiverr;Freelancer;PeoplePerHour;Toptal;Guru;Truelancer;FlexJobs;Contra;Malt;Workana;Freelancermap;Twine|twine.net;Bark;Catalant;Gun.io|gun.io;Arc|arc.dev;Turing;Lemon.io|lemon.io;Codeable|codeable.io;Braintrust|usebraintrust.com;Hubstaff Talent|talent.hubstaff.com;Superprof;Wyzant;Clickworker;Appen;Amazon Mechanical Turk|mturk.com;Prolific;UserTesting;Respondent|respondent.io;Outlier|outlier.ai;DataAnnotation|dataannotation.tech;Remotasks;Rev;Gengo;Smartling;ProZ|proz.com;Textbroker;WriterAccess;Contently;Crowdspring;DesignCrowd;Designhill;Working Not Working|workingnotworking.com;Cutshort;Instahyre",
+      "Jobs": "Indeed;LinkedIn Jobs|linkedin.com/jobs;Glassdoor;ZipRecruiter;Monster;SimplyHired;Dice;Wellfound;Hired;Remote OK|remoteok.com;We Work Remotely|weworkremotely.com;Remote.co|remote.co;Working Nomads|workingnomads.com;Naukri;Foundit|foundit.in;Shine;Apna|apna.co;Unstop;Internshala;WorkIndia|workindia.in;Freshersworld;Hirect|hirect.in;iimjobs;Sulekha;Jooble;Adzuna;Reed|reed.co.uk;Totaljobs;StepStone|stepstone.com;Seek|seek.com.au;JobStreet|jobstreet.com;Bayt;Naukrigulf|naukrigulf.com;Handshake|joinhandshake.com;Work at a Startup|workatastartup.com",
+      "Gig & Travel": "Uber;Ola|olacabs.com;Rapido|rapido.bike;Swiggy;Zomato;DoorDash;Instacart;Lyft;Grab;Gojek;Porter|porter.in;Blinkit;Zepto|zeptonow.com;Urban Company|urbancompany.com;TaskRabbit;Thumbtack;Airtasker;Airbnb;Booking.com|booking.com;Expedia;Vrbo;Turo;Getaround;Rover;Care.com|care.com;Shipt;Uber Eats|ubereats.com;Deliveroo;Glovo;Just Eat|just-eat.com;Bolt|bolt.eu;Careem;inDrive|indrive.com;OYO|oyorooms.com;MakeMyTrip|makemytrip.com;Goibibo;Cleartrip;Agoda;Tripadvisor;Skyscanner;Kayak;Viator;GetYourGuide",
+      "Design & Creative": "Behance|behance.net;Dribbble;Awwwards;Canva;Figma;Adobe Stock|stock.adobe.com;Shutterstock;Getty Images|gettyimages.com;iStock|istockphoto.com;Pond5;Envato;Creative Market|creativemarket.com;Pexels;Unsplash;Pixabay;500px;Flickr;SmugMug;ArtStation|artstation.com;DeviantArt|deviantart.com;Pixiv|pixiv.net;Adobe Portfolio|portfolio.adobe.com;Cargo|cargo.site;Format;Squarespace;Wix;Webflow;Framer;Carrd|carrd.co;Linktree|linktr.ee;99designs;Alamy;Dreamstime;Depositphotos;123RF|123rf.com;Freepik;Vecteezy;Iconfinder;Noun Project|thenounproject.com;Flaticon;Storyblocks;Artlist;Epidemic Sound|epidemicsound.com;AudioJungle|audiojungle.net;VideoHive|videohive.net;ThemeForest|themeforest.net;CodeCanyon|codecanyon.net;GraphicRiver|graphicriver.net;Motion Array|motionarray.com;Musicbed;Splice;BeatStars|beatstars.com;Bandcamp;SoundCloud;DistroKid;TuneCore;CD Baby|cdbaby.com;Audiomack;Mixcloud;Vimeo",
+      "Sell Online": "Amazon;eBay;Etsy;Walmart;Alibaba;AliExpress;Flipkart;Meesho;Myntra;Ajio;Snapdeal;Nykaa;Tata CLiQ|tatacliq.com;JioMart|jiomart.com;IndiaMART|indiamart.com;Udaan;Shopify;WooCommerce;BigCommerce;Square|squareup.com;Target;Best Buy|bestbuy.com;Wayfair;Rakuten;Mercado Libre|mercadolibre.com;Shopee;Lazada;Tokopedia;Coupang;Zalando;OLX|olx.in;Quikr;Craigslist|craigslist.org;Poshmark;Mercari;Depop;Vinted;ThredUp|thredup.com;Grailed;StockX;GOAT|goat.com;Reverb;Discogs;Faire;Temu;Shein;Newegg;Overstock;Houzz;Noon;Jumia;Takealot;Konga;Trendyol;Hepsiburada;Allegro|allegro.pl;Bol|bol.com;Kaspi|kaspi.kz;Ozon|ozon.ru;Wildberries|wildberries.ru;Cdiscount;Fruugo;OnBuy|onbuy.com;DHgate|dhgate.com;Made-in-China|made-in-china.com;Global Sources|globalsources.com;TradeIndia|tradeindia.com;ExportersIndia|exportersindia.com;Amazon Seller Central|sell.amazon.in;Flipkart Seller Hub|seller.flipkart.com;Meesho Supplier|supplier.meesho.com;Pepperfry;Lenskart;FirstCry;BigBasket|bigbasket.com;Croma|croma.com;Reliance Digital|reliancedigital.in;Purplle|purplle.com;boAt|boat-lifestyle.com;Decathlon|decathlon.in;Bewakoof;Limeroad;Shopsy|shopsy.in",
+      "Digital Products": "Gumroad;Patreon;Ko-fi|ko-fi.com;Buy Me a Coffee|buymeacoffee.com;Sellfy;Payhip;Lemon Squeezy|lemonsqueezy.com;Podia;Teachable;Thinkific;Kajabi;Redbubble;Society6;Spreadshirt;Printful;Printify;Zazzle;CafePress;Threadless;TeePublic;Gelato;Displate;Fine Art America|fineartamerica.com;Saatchi Art|saatchiart.com;Artfinder;Cults3D|cults3d.com;Printables|printables.com;Thingiverse;MyMiniFactory|myminifactory.com;Shapeways;Sculpteo;Xometry;Fictiv;itch.io|itch.io;Steam|store.steampowered.com;Epic Games|epicgames.com;Unity Asset Store|assetstore.unity.com;Fab|fab.com;Roblox;Wattpad;Kindle Direct Publishing|kdp.amazon.com;Draft2Digital|draft2digital.com;Smashwords;Lulu;IngramSpark|ingramspark.com;ACX|acx.com;Apple Books for Authors|authors.apple.com;Google Play Console|play.google.com/console;Apple Developer|developer.apple.com;Chrome Web Store|chromewebstore.google.com;Shopify App Store|apps.shopify.com;WordPress Plugins|wordpress.org/plugins;Atlassian Marketplace|marketplace.atlassian.com;Salesforce AppExchange|appexchange.salesforce.com",
+      "Developers": "GitHub;GitLab;Bitbucket|bitbucket.org;Stack Overflow|stackoverflow.com;Codementor|codementor.io;HackerRank;LeetCode;Codeforces;CodeChef;HackerEarth;Kaggle;Dev.to|dev.to;Hashnode;freeCodeCamp|freecodecamp.org;Replit;CodePen|codepen.io;Glitch;Vercel;Netlify;Heroku;DigitalOcean;Cloudflare;AWS|aws.amazon.com;Google Cloud|cloud.google.com;Microsoft Azure|azure.microsoft.com;Firebase|firebase.google.com;Supabase;MongoDB;Twilio;Postman;Docker;npm|npmjs.com;PyPI|pypi.org;Product Hunt|producthunt.com;Hacker News|news.ycombinator.com;Indie Hackers|indiehackers.com;Y Combinator|ycombinator.com;JetBrains;Hugging Face|huggingface.co;OpenAI;Anthropic;Atlassian;Linode;Vultr;Render;Railway|railway.com;Fly.io|fly.io;Sentry;Datadog;Grafana;Algolia;Auth0;Okta;Contentful;Sanity;Strapi;Prisma;Expo|expo.dev;Exercism|exercism.org;Devpost;MLH|mlh.io;Devfolio|devfolio.co;StackBlitz|stackblitz.com;CodeSandbox|codesandbox.io;JSFiddle|jsfiddle.net;Bubble|bubble.io;Zapier;n8n|n8n.io",
+      "Content & Social": "YouTube;Medium;Substack;Twitch;TikTok;Instagram;Facebook;X|x.com;LinkedIn;Pinterest;Snapchat;Reddit;Quora;Tumblr;WordPress|wordpress.com;Blogger|blogger.com;Ghost|ghost.org;Beehiiv;Spotify for Podcasters|podcasters.spotify.com;Dailymotion;Rumble;Kick|kick.com;Discord;Telegram|telegram.org;Threads|threads.net;Bluesky|bsky.app;Mastodon|joinmastodon.org;ShareChat|sharechat.com;Moj|mojapp.in;WhatsApp;Signal|signal.org;Line|line.me;WeChat|wechat.com;VK|vk.com;Weibo;Bilibili;Naver;Letterboxd;Goodreads;Strava;Nextdoor;Meetup;Eventbrite;Luma|lu.ma;Mirror|mirror.xyz;Flipboard",
+      "Learn & Teach": "Udemy;Coursera;edX|edx.org;Khan Academy|khanacademy.org;Skillshare;Udacity;Pluralsight;LinkedIn Learning|linkedin.com/learning;Domestika;MasterClass;Byju’s|byjus.com;Unacademy;Vedantu;upGrad|upgrad.com;Simplilearn;Great Learning|mygreatlearning.com;Scaler|scaler.com;Coding Ninjas|codingninjas.com;GeeksforGeeks|geeksforgeeks.org;W3Schools|w3schools.com;MDN Web Docs|developer.mozilla.org;NPTEL|nptel.ac.in;SWAYAM|swayam.gov.in;Duolingo;italki;Preply;Cambly;Chegg;Brainly;Codecademy;DataCamp;Treehouse|teamtreehouse.com;Brilliant|brilliant.org;Physics Wallah|pw.live;Testbook;Toppr;Alison|alison.com;FutureLearn;Class Central|classcentral.com;Tutor.com|tutor.com;Outschool",
+      "Money": "PayPal;Payoneer;Wise;Stripe;Razorpay;PayU|payu.in;Paytm;PhonePe;Cashfree;Revolut;Mercury;Deel;Remote|remote.com;Oyster|oysterhr.com;Gusto;QuickBooks|quickbooks.intuit.com;FreshBooks;Xero;Zoho;Wave|waveapps.com;Bonsai|hellobonsai.com;HoneyBook;Venmo;Cash App|cash.app;Skrill;Airwallex;Remitly;Western Union|westernunion.com;Zerodha;Groww;Upstox;CRED|cred.club;Google Pay|pay.google.com;Bluevine;Coinbase;Binance;Kraken;Chargebee;Paddle;Instamojo;Juspay|juspay.in;ClearTax|cleartax.in;Vyapar|vyaparapp.in;Khatabook",
+      "Business Tools": "Notion|notion.com;Trello;Asana;Slack;Zoom;Calendly;Loom;Airtable;Monday|monday.com;ClickUp|clickup.com;Mailchimp;HubSpot;Grammarly;Hootsuite;Buffer;Typeform;Tally|tally.so;Salesforce;Dropbox;Box;Google Workspace|workspace.google.com;Microsoft 365|microsoft.com/microsoft-365;Evernote;Todoist;Miro;Lucidchart;Basecamp;Wrike;Smartsheet;Jira|atlassian.com/software/jira;Zendesk;Freshworks;Intercom;Descript;Riverside|riverside.fm;Otter|otter.ai;Fireflies|fireflies.ai;Semrush;Ahrefs;Moz;SurveyMonkey;Jotform;ConvertKit|kit.com;ActiveCampaign;Brevo;Klaviyo;Constant Contact|constantcontact.com;AWeber;GetResponse;Later;Sprout Social|sproutsocial.com;DocuSign;PandaDoc;Dubsado;Toggl|toggl.com;Harvest|getharvest.com;Clockify;1Password|1password.com;Bitwarden;Proton|proton.me;Gmail|mail.google.com;Outlook|outlook.com;Yahoo",
+      "Companies": "Google;Microsoft;Apple;Meta;Adobe;Oracle;IBM;Intel;NVIDIA;AMD;Samsung;Sony;Tesla;Netflix;Spotify;Nike;Adidas;IKEA;Tata|tata.com;Reliance|ril.com;Infosys;Wipro;TCS|tcs.com;HCLTech|hcltech.com;Tech Mahindra|techmahindra.com;Disney;Hotstar;Prime Video|primevideo.com;Max|max.com;Hulu;Paramount+|paramountplus.com;Apple Music|music.apple.com;YouTube Music|music.youtube.com;Gaana;JioSaavn|jiosaavn.com;Xbox;PlayStation|playstation.com;Nintendo;Ubisoft;EA|ea.com;Riot Games|riotgames.com;Supercell;Garena;Zynga;Dream11|dream11.com;Oppo;Vivo;Xiaomi|mi.com;OnePlus|oneplus.com;Realme;Motorola;Nokia;Dell;HP|hp.com;Lenovo;Asus;Acer;Logitech;Bose;JBL|jbl.com"
+    };
+    const BLURB = {
+      "Freelance": "Find clients and paid projects.",
+      "Jobs": "Browse openings and apply.",
+      "Gig & Travel": "Earn from rides, delivery, tasks or hosting.",
+      "Design & Creative": "Show or sell creative work.",
+      "Sell Online": "Open a store and reach buyers.",
+      "Digital Products": "Sell templates, courses, books or apps.",
+      "Developers": "Build, host and share code.",
+      "Content & Social": "Grow an audience with your content.",
+      "Learn & Teach": "Take courses or teach your skill.",
+      "Money": "Get paid, invoice or manage money.",
+      "Business Tools": "Run your work day to day.",
+      "Companies": "Create an account with a major brand."
+    };
+
+    const seen = new Set();
+    const platforms = [];
+    Object.entries(RAW).forEach(([cat, list]) => {
+      list.split(";").forEach(item => {
+        const [name, domain] = item.split("|");
+        const key = name.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        const host = domain || name.toLowerCase().replace(/[^a-z0-9]/g, "") + ".com";
+        let h = 0;
+        for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) % 360;
+        platforms.push({ name, cat, url: "https://" + host, desc: BLURB[cat], color: "hsl(" + h + " 50% 38%)" });
+      });
+    });
+
+    const PAGE = 60;
+    let shown = PAGE;
+    const wall = document.getElementById("wall");
+    const filters = document.getElementById("filters");
+    const search = document.getElementById("search");
+    const empty = document.getElementById("empty");
+    const more = document.getElementById("more");
+    const count = document.getElementById("count");
+    let activeCat = "All";
+
+    function render() {
+      const q = search.value.trim().toLowerCase();
+      const list = platforms.filter(p =>
+        (activeCat === "All" || p.cat === activeCat) &&
+        (p.name + " " + p.cat).toLowerCase().includes(q)
+      );
+      wall.innerHTML = "";
+      list.slice(0, shown).forEach(p => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML =
+          '<div class="top"><div class="mark" style="background:' + p.color + '">' + p.name[0] + '</div>' +
+          '<div><h3>' + p.name + '</h3><div class="tag">' + p.cat + '</div></div></div>' +
+          '<p>' + p.desc + '</p>' +
+          '<a href="' + p.url + '" target="_blank" rel="noopener noreferrer">Sign up</a>';
+        wall.appendChild(card);
+      });
+      count.textContent = list.length + " platforms";
+      more.style.display = list.length > shown ? "inline-block" : "none";
+      empty.style.display = list.length ? "none" : "block";
+    }
+
+    function buildFilters() {
+      const cats = ["All", ...new Set(platforms.map(p => p.cat))];
+      cats.forEach(c => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = c;
+        if (c === activeCat) b.classList.add("active");
+        b.addEventListener("click", () => {
+          activeCat = c; shown = PAGE;
+          filters.querySelectorAll("button").forEach(x => x.classList.toggle("active", x === b));
+          render();
+        });
+        filters.appendChild(b);
+      });
+    }
+
+    // Dark mode, remembered between visits
+    const root = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+    function setTheme(t) {
+      root.setAttribute("data-theme", t);
+      btn.textContent = t === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+      try { localStorage.setItem("wall-theme", t); } catch (e) {}
+    }
+    let saved = null;
+    try { saved = localStorage.getItem("wall-theme"); } catch (e) {}
+    setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+    btn.addEventListener("click", () => setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
+
+    search.addEventListener("input", () => { shown = PAGE; render(); });
+    more.addEventListener("click", () => { shown += PAGE; render(); });
+    document.getElementById("year").textContent = new Date().getFullYear();
+    buildFilters();
+    render();
+  </script>
+</body>
+</html>

@@ -280,6 +280,32 @@
   </div>
 
   <script>
+    /*
+      CONFIGURATION
+
+      1. Add a verified website URL to VERIFIED_URLS only
+         after checking that it belongs to the official platform.
+
+      2. Add your Google Form links after creating them.
+
+      3. No website address is guessed automatically.
+    */
+
+    const VERIFIED_URLS = {
+      // Example after manually verifying an official destination:
+      // "GitHub": "https://github.com"
+    };
+
+    const SUBMISSION_FORM_URL = "";
+    const REPORT_FORM_URL = "";
+
+    /*
+      Original platform dataset retained.
+      Format:
+      Name
+      Name|provided-domain.com
+      Provided domains are candidates, NOT automatically verified.
+    */
     // Format: "Name" (site guessed as name.com) or "Name|real-domain.com/path"
     const RAW = {
       "Freelance": "Upwork;Fiverr;Freelancer;PeoplePerHour;Toptal;Guru;Truelancer;FlexJobs;Contra;Malt;Workana;Freelancermap;Twine|twine.net;Bark;Catalant;Gun.io|gun.io;Arc|arc.dev;Turing;Lemon.io|lemon.io;Codeable|codeable.io;Braintrust|usebraintrust.com;Hubstaff Talent|talent.hubstaff.com;Superprof;Wyzant;Clickworker;Appen;Amazon Mechanical Turk|mturk.com;Prolific;UserTesting;Respondent|respondent.io;Outlier|outlier.ai;DataAnnotation|dataannotation.tech;Remotasks;Rev;Gengo;Smartling;ProZ|proz.com;Textbroker;WriterAccess;Contently;Crowdspring;DesignCrowd;Designhill;Working Not Working|workingnotworking.com;Cutshort;Instahyre",
@@ -310,87 +336,288 @@
       "Companies": "Create an account with a major brand."
     };
 
+    const PAGE_SIZE = 60;
+
     const seen = new Set();
     const platforms = [];
-    Object.entries(RAW).forEach(([cat, list]) => {
+
+    Object.entries(RAW).forEach(([category, list]) => {
       list.split(";").forEach(item => {
-        const [name, domain] = item.split("|");
+        const parts = item.split("|");
+        const name = parts[0].trim();
+        const suppliedDomain = (parts[1] || "").trim();
+
         const key = name.toLowerCase();
+
         if (seen.has(key)) return;
         seen.add(key);
-        const host = domain || name.toLowerCase().replace(/[^a-z0-9]/g, "") + ".com";
-        let h = 0;
-        for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) % 360;
-        platforms.push({ name, cat, url: "https://" + host, desc: BLURB[cat], color: "hsl(" + h + " 50% 38%)" });
+
+        /*
+          IMPORTANT:
+          The supplied domain is retained as a candidate.
+          It is never opened unless the exact name is added
+          to VERIFIED_URLS after manual verification.
+        */
+
+        const verifiedUrl = VERIFIED_URLS[name] || null;
+
+        let hash = 0;
+        for (const character of name) {
+          hash = (hash * 31 + character.charCodeAt(0)) % 360;
+        }
+
+        platforms.push({
+          name,
+          category,
+          suppliedDomain,
+          url: verifiedUrl,
+          description: BLURB[category],
+          color: `hsl(${hash} 50% 38%)`
+        });
       });
     });
 
-    const PAGE = 60;
-    let shown = PAGE;
     const wall = document.getElementById("wall");
     const filters = document.getElementById("filters");
     const search = document.getElementById("search");
     const empty = document.getElementById("empty");
     const more = document.getElementById("more");
     const count = document.getElementById("count");
-    let activeCat = "All";
+
+    let activeCategory = "All";
+    let shown = PAGE_SIZE;
+
+    function createElement(tag, className, text) {
+      const element = document.createElement(tag);
+
+      if (className) element.className = className;
+      if (text !== undefined) element.textContent = text;
+
+      return element;
+    }
 
     function render() {
-      const q = search.value.trim().toLowerCase();
-      const list = platforms.filter(p =>
-        (activeCat === "All" || p.cat === activeCat) &&
-        (p.name + " " + p.cat).toLowerCase().includes(q)
-      );
-      wall.innerHTML = "";
-      list.slice(0, shown).forEach(p => {
-        const card = document.createElement("article");
-        card.className = "card";
-        card.innerHTML =
-          '<div class="top"><div class="mark" style="background:' + p.color + '">' + p.name[0] + '</div>' +
-          '<div><h3>' + p.name + '</h3><div class="tag">' + p.cat + '</div></div></div>' +
-          '<p>' + p.desc + '</p>' +
-          '<a href="' + p.url + '" target="_blank" rel="noopener noreferrer">Sign up</a>';
+      const query = search.value.trim().toLowerCase();
+
+      const list = platforms.filter(platform => {
+        const matchesCategory =
+          activeCategory === "All" ||
+          platform.category === activeCategory;
+
+        const searchable =
+          `${platform.name} ${platform.category} ${platform.description}`
+            .toLowerCase();
+
+        return matchesCategory && searchable.includes(query);
+      });
+
+      wall.replaceChildren();
+
+      list.slice(0, shown).forEach(platform => {
+        const card = createElement("article", "card");
+
+        const top = createElement("div", "card-top");
+        const mark = createElement("div", "mark", platform.name.charAt(0));
+        mark.style.background = platform.color;
+        mark.setAttribute("aria-hidden", "true");
+
+        const details = document.createElement("div");
+        const heading = createElement("h3", "", platform.name);
+        const tag = createElement("div", "tag", platform.category);
+
+        details.append(heading, tag);
+        top.append(mark, details);
+
+        const description = createElement(
+          "p",
+          "",
+          platform.description
+        );
+
+        card.append(top, description);
+
+        if (platform.url) {
+          const status = createElement(
+            "span",
+            "status verified",
+            "✓ Destination marked as verified"
+          );
+
+          const link = createElement(
+            "a",
+            "visit",
+            "Visit website →"
+          );
+
+          link.href = platform.url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.setAttribute(
+            "aria-label",
+            `Visit the official website for ${platform.name}`
+          );
+
+          card.append(status, link);
+        } else {
+          const status = createElement(
+            "span",
+            "status",
+            "Link awaiting verification"
+          );
+
+          const unavailable = createElement(
+            "span",
+            "unavailable",
+            "Website destination is not currently available."
+          );
+
+          card.append(status, unavailable);
+        }
+
         wall.appendChild(card);
       });
-      count.textContent = list.length + " platforms";
-      more.style.display = list.length > shown ? "inline-block" : "none";
-      empty.style.display = list.length ? "none" : "block";
+
+      count.textContent =
+        `Showing ${Math.min(list.length, shown)} of ${list.length} websites`;
+
+      more.style.display =
+        list.length > shown ? "inline-block" : "none";
+
+      empty.style.display =
+        list.length ? "none" : "block";
     }
 
     function buildFilters() {
-      const cats = ["All", ...new Set(platforms.map(p => p.cat))];
-      cats.forEach(c => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.textContent = c;
-        if (c === activeCat) b.classList.add("active");
-        b.addEventListener("click", () => {
-          activeCat = c; shown = PAGE;
-          filters.querySelectorAll("button").forEach(x => x.classList.toggle("active", x === b));
+      const categories = [
+        "All",
+        ...Object.keys(RAW)
+      ];
+
+      categories.forEach(category => {
+        const button = createElement(
+          "button",
+          category === activeCategory ? "active" : "",
+          category
+        );
+
+        button.type = "button";
+        button.setAttribute(
+          "aria-pressed",
+          category === activeCategory ? "true" : "false"
+        );
+
+        button.addEventListener("click", () => {
+          activeCategory = category;
+          shown = PAGE_SIZE;
+
+          filters.querySelectorAll("button").forEach(item => {
+            const active = item.textContent === category;
+            item.classList.toggle("active", active);
+            item.setAttribute("aria-pressed", String(active));
+          });
+
           render();
         });
-        filters.appendChild(b);
+
+        filters.appendChild(button);
       });
     }
 
-    // Dark mode, remembered between visits
-    const root = document.documentElement;
-    const btn = document.getElementById("themeBtn");
-    function setTheme(t) {
-      root.setAttribute("data-theme", t);
-      btn.textContent = t === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
-      try { localStorage.setItem("wall-theme", t); } catch (e) {}
-    }
-    let saved = null;
-    try { saved = localStorage.getItem("wall-theme"); } catch (e) {}
-    setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
-    btn.addEventListener("click", () => setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
+    // Theme preference
 
-    search.addEventListener("input", () => { shown = PAGE; render(); });
-    more.addEventListener("click", () => { shown += PAGE; render(); });
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const root = document.documentElement;
+    const themeButton = document.getElementById("themeBtn");
+
+    function setTheme(theme) {
+      root.setAttribute("data-theme", theme);
+
+      themeButton.textContent =
+        theme === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+
+      try {
+        localStorage.setItem("wall-theme", theme);
+      } catch (error) {
+        // Theme still works for the current page session.
+      }
+    }
+
+    let savedTheme = null;
+
+    try {
+      savedTheme = localStorage.getItem("wall-theme");
+    } catch (error) {}
+
+    const preferredTheme =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+    setTheme(savedTheme || preferredTheme);
+
+    themeButton.addEventListener("click", () => {
+      const nextTheme =
+        root.getAttribute("data-theme") === "dark"
+          ? "light"
+          : "dark";
+
+      setTheme(nextTheme);
+    });
+
+    // Search and pagination
+
+    search.addEventListener("input", () => {
+      shown = PAGE_SIZE;
+      render();
+    });
+
+    more.addEventListener("click", () => {
+      shown += PAGE_SIZE;
+      render();
+    });
+
+    // Submission and reporting forms
+
+    function configureFormLink(
+      url,
+      linkId,
+      unavailableId
+    ) {
+      const link = document.getElementById(linkId);
+      const unavailable = document.getElementById(unavailableId);
+
+      if (
+        url &&
+        /^https:\/\/(docs\.google\.com\/forms|forms\.gle)\//i.test(url)
+      ) {
+        link.href = url;
+        link.hidden = false;
+        unavailable.hidden = true;
+      }
+    }
+
+    configureFormLink(
+      SUBMISSION_FORM_URL,
+      "submitLink",
+      "submitUnavailable"
+    );
+
+    configureFormLink(
+      REPORT_FORM_URL,
+      "reportLink",
+      "reportUnavailable"
+    );
+
+    // Footer year
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Initialize the directory
+
     buildFilters();
     render();
+
   </script>
 </body>
 </html>

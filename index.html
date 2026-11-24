@@ -1,12 +1,24 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wellcome To The Wall </title>
-  <meta name="description" content="A wall of sign-up links at one marketplaces, portfolios and networks.">
+
+  <title>The Wall | Discover More. Explore Everything.</title>
+  <meta name="description" content="Discover websites, digital platforms and online services around the world. Explore technology, jobs, education, shopping, finance, creativity and more.">
+  <meta name="theme-color" content="#f3f1ee">
+
+  <link rel="canonical" href="https://madhavnaidu-06.github.io/google-wall/">
+  <meta property="og:title" content="The Wall – Discover More. Explore Everything.">
+  <meta property="og:description" content="Explore useful websites, digital platforms and services from around the world.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://madhavnaidu-06.github.io/google-wall/">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #f3f1ee;
@@ -16,8 +28,12 @@
       --line: #dcd8d2;
       --accent: #2547d0;
       --accent-text: #ffffff;
+      --soft: #e9edff;
+      --success: #18794e;
+      --warning: #946200;
       color-scheme: light;
     }
+
     :root[data-theme="dark"] {
       --bg: #141516;
       --surface: #1e2022;
@@ -26,215 +42,892 @@
       --line: #34373a;
       --accent: #7f9bff;
       --accent-text: #101114;
+      --soft: #252c44;
+      --success: #72d6a5;
+      --warning: #f0c66b;
       color-scheme: dark;
     }
+
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.5;
+      font-family: "Bricolage Grotesque", system-ui, sans-serif;
+      line-height: 1.6;
       transition: background .25s, color .25s;
     }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-    header { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
-    .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -.02em; }
+    a { color: inherit; }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.45rem;
+      letter-spacing: -.04em;
+    }
+
+    .brand-by {
+      color: var(--muted);
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
     #themeBtn {
-      font: inherit; font-size: .9rem; cursor: pointer;
-      background: var(--surface); color: var(--text);
-      border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px;
+      font: inherit;
+      font-size: .88rem;
+      cursor: pointer;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 15px;
     }
 
-    .hero { padding: 48px 0 24px; }
-    h1 { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.03em; margin: 0 0 14px; font-weight: 800; max-width: 14em; }
-    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 34em; margin: 0 0 26px; }
+    .hero {
+      padding: 66px 0 30px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--accent);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+      margin: 0 0 20px;
+      font-weight: 800;
+      max-width: 850px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 650px;
+      margin: 0 0 28px;
+    }
+
+    .search-wrap {
+      max-width: 600px;
+    }
+
     #search {
-      width: 100%; max-width: 440px; font: inherit; font-size: 1rem;
-      padding: 13px 18px; border-radius: 12px;
-      border: 1px solid var(--line); background: var(--surface); color: var(--text);
+      width: 100%;
+      font: inherit;
+      font-size: 1rem;
+      padding: 15px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
     }
 
-    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 22px; }
+    .search-hint {
+      color: var(--muted);
+      font-size: .82rem;
+      margin: 8px 2px 0;
+    }
+
+    .section-heading {
+      margin: 35px 0 12px;
+      font-size: 1.25rem;
+      letter-spacing: -.02em;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 15px 0 22px;
+    }
+
     .filters button {
-      font: inherit; font-size: .9rem; cursor: pointer;
-      padding: 7px 15px; border-radius: 999px;
-      border: 1px solid var(--line); background: transparent; color: var(--text);
+      font: inherit;
+      font-size: .88rem;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
     }
-    .filters button.active { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
 
-    /* The wall: cards stagger like bricks */
-    #wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; padding-bottom: 40px; }
+    .filters button.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: .9rem;
+      margin: 0 0 16px;
+    }
+
+    #wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      padding-bottom: 20px;
+    }
+
     .card {
-      background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
-      padding: 18px; display: flex; flex-direction: column; gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+      transition: transform .2s, border-color .2s;
     }
-    .card:nth-child(even) { margin-top: 18px; }
-    .card .top { display: flex; align-items: center; gap: 12px; }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .mark {
-      width: 40px; height: 40px; border-radius: 8px; flex: none;
-      display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 1.1rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.1rem;
     }
-    .card h3 { margin: 0; font-size: 1.05rem; }
-    .tag { font-size: .8rem; color: var(--muted); }
-    .card p { margin: 0; color: var(--muted); font-size: .92rem; flex: 1; }
-    .card a {
-      align-self: flex-start; text-decoration: none; font-weight: 600; font-size: .92rem;
-      background: var(--accent); color: var(--accent-text); padding: 8px 16px; border-radius: 8px;
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      overflow-wrap: anywhere;
     }
-    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-    .count { color: var(--muted); font-size: .9rem; margin: 0 0 14px; }
-    .morewrap { text-align: center; padding-bottom: 40px; }
-    #more { font: inherit; cursor: pointer; padding: 11px 26px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
-    #wall { padding-bottom: 20px !important; }
-    #empty { display: none; color: var(--muted); padding: 30px 0; }
 
-    footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); font-size: .9rem; }
+    .tag {
+      font-size: .8rem;
+      color: var(--muted);
+    }
 
-    @media (max-width: 520px) { .card:nth-child(even) { margin-top: 0; } }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      flex: 1;
+    }
+
+    .status {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--warning);
+      background: var(--soft);
+      border-radius: 7px;
+      padding: 7px 9px;
+      align-self: flex-start;
+    }
+
+    .status.verified {
+      color: var(--success);
+    }
+
+    .card a.visit {
+      align-self: flex-start;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 9px 16px;
+      border-radius: 8px;
+    }
+
+    .unavailable {
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .morewrap {
+      text-align: center;
+      padding: 20px 0 50px;
+    }
+
+    #more {
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 11px 26px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    #empty {
+      display: none;
+      color: var(--muted);
+      padding: 30px 0;
+    }
+
+    .info-section {
+      border-top: 1px solid var(--line);
+      padding: 45px 0;
+    }
+
+    .info-section h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      letter-spacing: -.035em;
+      margin: 0 0 12px;
+    }
+
+    .info-section p {
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 0 16px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .info-card p {
+      font-size: .92rem;
+      margin: 0;
+    }
+
+    .info-link {
+      display: inline-block;
+      margin-top: 15px;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .info-link:hover { text-decoration: underline; }
+
+    .notice {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 15px;
+      font-size: .88rem;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    footer p { margin: 6px 0; }
+
+    .footer-brand {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding-top: 45px; }
+      #wall { grid-template-columns: 1fr; }
+      header { padding: 15px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
+
     <header>
-      <div class="logo">The Wall</div>
-      <button id="themeBtn" type="button" aria-label="Switch between light and dark mode">🌙 Dark mode</button>
+      <div class="brand">
+        <div class="brand-name">The Wall</div>
+        <div class="brand-by">A product by AIM</div>
+      </div>
+
+      <button id="themeBtn" type="button">
+        🌙 Dark mode
+      </button>
     </header>
 
     <section class="hero">
-      <h1>Every place to start freelancing, on one wall.</h1>
-      <p>Pick a platform, sign up, and get your first client. Search by name or filter by what you do.</p>
-      <input id="search" type="search" placeholder="Search platforms…" aria-label="Search platforms">
+      <span class="eyebrow">Explore the digital world</span>
+
+      <h1>Discover more. Explore everything.</h1>
+
+      <p>
+        Find useful websites, platforms and digital services
+        from around the world — all in one place.
+        Explore, discover and connect with opportunities
+        across different categories.
+      </p>
+
+      <div class="search-wrap">
+        <input
+          id="search"
+          type="search"
+          placeholder="Search websites, services or categories..."
+          aria-label="Search websites, services or categories"
+        >
+        <p class="search-hint">
+          Search by platform name or category.
+        </p>
+      </div>
     </section>
 
-    <nav class="filters" id="filters" aria-label="Categories"></nav>
-    <p class="count" id="count"></p>
-
     <main>
+      <h2 class="section-heading">Explore categories</h2>
+
+      <nav
+        class="filters"
+        id="filters"
+        aria-label="Website categories"
+      ></nav>
+
+      <p class="count" id="count" aria-live="polite"></p>
+
       <div id="wall"></div>
-      <div class="morewrap"><button id="more" type="button">Show more</button></div>
-      <p id="empty">No platforms match your search. Try a different word or choose “All”.</p>
+
+      <div class="morewrap">
+        <button id="more" type="button">Show more</button>
+      </div>
+
+      <p id="empty">
+        No websites match your search.
+        Try another keyword or select All.
+      </p>
     </main>
 
+    <section class="info-section" id="about">
+      <h2>About The Wall</h2>
+
+      <p>
+        The Wall is a global website-discovery directory
+        designed to make finding useful online platforms easier.
+        Explore websites across different industries,
+        interests and services from one simple destination.
+      </p>
+
+      <p>
+        Our mission is to make the digital world easier to
+        explore and help people discover platforms,
+        services and opportunities that can help them grow.
+      </p>
+
+      <p>
+        The Wall is a product initiative under
+        <strong>AIM – Advanced Idea Mechanism.</strong>
+      </p>
+    </section>
+
+    <section class="info-section" id="submit">
+      <h2>List your website</h2>
+
+      <p>
+        Do you own a website or online platform?
+        We welcome website listing suggestions from businesses,
+        creators and developers around the world.
+      </p>
+
+      <div class="info-card">
+        <h3>Submit your website</h3>
+        <p>
+          Website submissions will be reviewed before publication.
+          We may verify ownership, relevance and the official
+          destination before adding a listing.
+        </p>
+
+        <a
+          class="info-link"
+          id="submitLink"
+          href="#"
+          hidden
+        >Submit your website →</a>
+
+        <span class="unavailable" id="submitUnavailable">
+          Submission form is being prepared.
+        </span>
+      </div>
+    </section>
+
+    <section class="info-section" id="report">
+      <h2>Help us keep The Wall accurate</h2>
+
+      <p>
+        Found a broken link, incorrect website address
+        or misleading listing? We want to know.
+      </p>
+
+      <div class="info-card">
+        <h3>Report a website</h3>
+        <p>
+          Reports help us review and improve the accuracy
+          of our directory.
+        </p>
+
+        <a
+          class="info-link"
+          id="reportLink"
+          href="#"
+          hidden
+        >Report an issue →</a>
+
+        <span class="unavailable" id="reportUnavailable">
+          Reporting form is being prepared.
+        </span>
+      </div>
+    </section>
+
+    <div class="notice">
+      <strong>Important information:</strong>
+      The Wall is a discovery directory, not the owner
+      or operator of the listed third-party websites.
+      Website availability, pricing, registration rules
+      and services may change. Always check the official
+      website before sharing information or making payments.
+      Listings without a verified destination cannot
+      currently be opened from this directory.
+    </div>
+
     <footer>
-      <p>Links go to each platform’s official site. Sign-up rules and fees change, so check each site before you join.</p>
-      <p>© <span id="year"></span> The Wall</p>
+      <p class="footer-brand">
+        The Wall — Discover more. Explore everything.
+      </p>
+
+      <p>A product by AIM – Advanced Idea Mechanism.</p>
+
+      <p>
+        © <span id="year"></span> The Wall. All rights reserved.
+      </p>
+
+      <p>
+        <a href="#about">About</a> ·
+        <a href="#submit">Submit a website</a> ·
+        <a href="#report">Report an issue</a>
+      </p>
     </footer>
+
   </div>
 
   <script>
-    // Format: "Name" (site guessed as name.com) or "Name|real-domain.com/path"
+    /*
+      CONFIGURATION
+
+      1. Add a verified website URL to VERIFIED_URLS only
+         after checking that it belongs to the official platform.
+
+      2. Add your Google Form links after creating them.
+
+      3. No website address is guessed automatically.
+    */
+
+    const VERIFIED_URLS = {
+      // Example after manually verifying an official destination:
+      // "GitHub": "https://github.com"
+    };
+
+    const SUBMISSION_FORM_URL = "";
+    const REPORT_FORM_URL = "";
+
+    /*
+      Original platform dataset retained.
+      Format:
+      Name
+      Name|provided-domain.com
+      Provided domains are candidates, NOT automatically verified.
+    */
+
     const RAW = {
       "Freelance": "Upwork;Fiverr;Freelancer;PeoplePerHour;Toptal;Guru;Truelancer;FlexJobs;Contra;Malt;Workana;Freelancermap;Twine|twine.net;Bark;Catalant;Gun.io|gun.io;Arc|arc.dev;Turing;Lemon.io|lemon.io;Codeable|codeable.io;Braintrust|usebraintrust.com;Hubstaff Talent|talent.hubstaff.com;Superprof;Wyzant;Clickworker;Appen;Amazon Mechanical Turk|mturk.com;Prolific;UserTesting;Respondent|respondent.io;Outlier|outlier.ai;DataAnnotation|dataannotation.tech;Remotasks;Rev;Gengo;Smartling;ProZ|proz.com;Textbroker;WriterAccess;Contently;Crowdspring;DesignCrowd;Designhill;Working Not Working|workingnotworking.com;Cutshort;Instahyre",
+
       "Jobs": "Indeed;LinkedIn Jobs|linkedin.com/jobs;Glassdoor;ZipRecruiter;Monster;SimplyHired;Dice;Wellfound;Hired;Remote OK|remoteok.com;We Work Remotely|weworkremotely.com;Remote.co|remote.co;Working Nomads|workingnomads.com;Naukri;Foundit|foundit.in;Shine;Apna|apna.co;Unstop;Internshala;WorkIndia|workindia.in;Freshersworld;Hirect|hirect.in;iimjobs;Sulekha;Jooble;Adzuna;Reed|reed.co.uk;Totaljobs;StepStone|stepstone.com;Seek|seek.com.au;JobStreet|jobstreet.com;Bayt;Naukrigulf|naukrigulf.com;Handshake|joinhandshake.com;Work at a Startup|workatastartup.com",
+
       "Gig & Travel": "Uber;Ola|olacabs.com;Rapido|rapido.bike;Swiggy;Zomato;DoorDash;Instacart;Lyft;Grab;Gojek;Porter|porter.in;Blinkit;Zepto|zeptonow.com;Urban Company|urbancompany.com;TaskRabbit;Thumbtack;Airtasker;Airbnb;Booking.com|booking.com;Expedia;Vrbo;Turo;Getaround;Rover;Care.com|care.com;Shipt;Uber Eats|ubereats.com;Deliveroo;Glovo;Just Eat|just-eat.com;Bolt|bolt.eu;Careem;inDrive|indrive.com;OYO|oyorooms.com;MakeMyTrip|makemytrip.com;Goibibo;Cleartrip;Agoda;Tripadvisor;Skyscanner;Kayak;Viator;GetYourGuide",
+
       "Design & Creative": "Behance|behance.net;Dribbble;Awwwards;Canva;Figma;Adobe Stock|stock.adobe.com;Shutterstock;Getty Images|gettyimages.com;iStock|istockphoto.com;Pond5;Envato;Creative Market|creativemarket.com;Pexels;Unsplash;Pixabay;500px;Flickr;SmugMug;ArtStation|artstation.com;DeviantArt|deviantart.com;Pixiv|pixiv.net;Adobe Portfolio|portfolio.adobe.com;Cargo|cargo.site;Format;Squarespace;Wix;Webflow;Framer;Carrd|carrd.co;Linktree|linktr.ee;99designs;Alamy;Dreamstime;Depositphotos;123RF|123rf.com;Freepik;Vecteezy;Iconfinder;Noun Project|thenounproject.com;Flaticon;Storyblocks;Artlist;Epidemic Sound|epidemicsound.com;AudioJungle|audiojungle.net;VideoHive|videohive.net;ThemeForest|themeforest.net;CodeCanyon|codecanyon.net;GraphicRiver|graphicriver.net;Motion Array|motionarray.com;Musicbed;Splice;BeatStars|beatstars.com;Bandcamp;SoundCloud;DistroKid;TuneCore;CD Baby|cdbaby.com;Audiomack;Mixcloud;Vimeo",
+
       "Sell Online": "Amazon;eBay;Etsy;Walmart;Alibaba;AliExpress;Flipkart;Meesho;Myntra;Ajio;Snapdeal;Nykaa;Tata CLiQ|tatacliq.com;JioMart|jiomart.com;IndiaMART|indiamart.com;Udaan;Shopify;WooCommerce;BigCommerce;Square|squareup.com;Target;Best Buy|bestbuy.com;Wayfair;Rakuten;Mercado Libre|mercadolibre.com;Shopee;Lazada;Tokopedia;Coupang;Zalando;OLX|olx.in;Quikr;Craigslist|craigslist.org;Poshmark;Mercari;Depop;Vinted;ThredUp|thredup.com;Grailed;StockX;GOAT|goat.com;Reverb;Discogs;Faire;Temu;Shein;Newegg;Overstock;Houzz;Noon;Jumia;Takealot;Konga;Trendyol;Hepsiburada;Allegro|allegro.pl;Bol|bol.com;Kaspi|kaspi.kz;Ozon|ozon.ru;Wildberries|wildberries.ru;Cdiscount;Fruugo;OnBuy|onbuy.com;DHgate|dhgate.com;Made-in-China|made-in-china.com;Global Sources|globalsources.com;TradeIndia|tradeindia.com;ExportersIndia|exportersindia.com;Amazon Seller Central|sell.amazon.in;Flipkart Seller Hub|seller.flipkart.com;Meesho Supplier|supplier.meesho.com;Pepperfry;Lenskart;FirstCry;BigBasket|bigbasket.com;Croma|croma.com;Reliance Digital|reliancedigital.in;Purplle|purplle.com;boAt|boat-lifestyle.com;Decathlon|decathlon.in;Bewakoof;Limeroad;Shopsy|shopsy.in",
+
       "Digital Products": "Gumroad;Patreon;Ko-fi|ko-fi.com;Buy Me a Coffee|buymeacoffee.com;Sellfy;Payhip;Lemon Squeezy|lemonsqueezy.com;Podia;Teachable;Thinkific;Kajabi;Redbubble;Society6;Spreadshirt;Printful;Printify;Zazzle;CafePress;Threadless;TeePublic;Gelato;Displate;Fine Art America|fineartamerica.com;Saatchi Art|saatchiart.com;Artfinder;Cults3D|cults3d.com;Printables|printables.com;Thingiverse;MyMiniFactory|myminifactory.com;Shapeways;Sculpteo;Xometry;Fictiv;itch.io|itch.io;Steam|store.steampowered.com;Epic Games|epicgames.com;Unity Asset Store|assetstore.unity.com;Fab|fab.com;Roblox;Wattpad;Kindle Direct Publishing|kdp.amazon.com;Draft2Digital|draft2digital.com;Smashwords;Lulu;IngramSpark|ingramspark.com;ACX|acx.com;Apple Books for Authors|authors.apple.com;Google Play Console|play.google.com/console;Apple Developer|developer.apple.com;Chrome Web Store|chromewebstore.google.com;Shopify App Store|apps.shopify.com;WordPress Plugins|wordpress.org/plugins;Atlassian Marketplace|marketplace.atlassian.com;Salesforce AppExchange|appexchange.salesforce.com",
+
       "Developers": "GitHub;GitLab;Bitbucket|bitbucket.org;Stack Overflow|stackoverflow.com;Codementor|codementor.io;HackerRank;LeetCode;Codeforces;CodeChef;HackerEarth;Kaggle;Dev.to|dev.to;Hashnode;freeCodeCamp|freecodecamp.org;Replit;CodePen|codepen.io;Glitch;Vercel;Netlify;Heroku;DigitalOcean;Cloudflare;AWS|aws.amazon.com;Google Cloud|cloud.google.com;Microsoft Azure|azure.microsoft.com;Firebase|firebase.google.com;Supabase;MongoDB;Twilio;Postman;Docker;npm|npmjs.com;PyPI|pypi.org;Product Hunt|producthunt.com;Hacker News|news.ycombinator.com;Indie Hackers|indiehackers.com;Y Combinator|ycombinator.com;JetBrains;Hugging Face|huggingface.co;OpenAI;Anthropic;Atlassian;Linode;Vultr;Render;Railway|railway.com;Fly.io|fly.io;Sentry;Datadog;Grafana;Algolia;Auth0;Okta;Contentful;Sanity;Strapi;Prisma;Expo|expo.dev;Exercism|exercism.org;Devpost;MLH|mlh.io;Devfolio|devfolio.co;StackBlitz|stackblitz.com;CodeSandbox|codesandbox.io;JSFiddle|jsfiddle.net;Bubble|bubble.io;Zapier;n8n|n8n.io",
+
       "Content & Social": "YouTube;Medium;Substack;Twitch;TikTok;Instagram;Facebook;X|x.com;LinkedIn;Pinterest;Snapchat;Reddit;Quora;Tumblr;WordPress|wordpress.com;Blogger|blogger.com;Ghost|ghost.org;Beehiiv;Spotify for Podcasters|podcasters.spotify.com;Dailymotion;Rumble;Kick|kick.com;Discord;Telegram|telegram.org;Threads|threads.net;Bluesky|bsky.app;Mastodon|joinmastodon.org;ShareChat|sharechat.com;Moj|mojapp.in;WhatsApp;Signal|signal.org;Line|line.me;WeChat|wechat.com;VK|vk.com;Weibo;Bilibili;Naver;Letterboxd;Goodreads;Strava;Nextdoor;Meetup;Eventbrite;Luma|lu.ma;Mirror|mirror.xyz;Flipboard",
+
       "Learn & Teach": "Udemy;Coursera;edX|edx.org;Khan Academy|khanacademy.org;Skillshare;Udacity;Pluralsight;LinkedIn Learning|linkedin.com/learning;Domestika;MasterClass;Byju’s|byjus.com;Unacademy;Vedantu;upGrad|upgrad.com;Simplilearn;Great Learning|mygreatlearning.com;Scaler|scaler.com;Coding Ninjas|codingninjas.com;GeeksforGeeks|geeksforgeeks.org;W3Schools|w3schools.com;MDN Web Docs|developer.mozilla.org;NPTEL|nptel.ac.in;SWAYAM|swayam.gov.in;Duolingo;italki;Preply;Cambly;Chegg;Brainly;Codecademy;DataCamp;Treehouse|teamtreehouse.com;Brilliant|brilliant.org;Physics Wallah|pw.live;Testbook;Toppr;Alison|alison.com;FutureLearn;Class Central|classcentral.com;Tutor.com|tutor.com;Outschool",
+
       "Money": "PayPal;Payoneer;Wise;Stripe;Razorpay;PayU|payu.in;Paytm;PhonePe;Cashfree;Revolut;Mercury;Deel;Remote|remote.com;Oyster|oysterhr.com;Gusto;QuickBooks|quickbooks.intuit.com;FreshBooks;Xero;Zoho;Wave|waveapps.com;Bonsai|hellobonsai.com;HoneyBook;Venmo;Cash App|cash.app;Skrill;Airwallex;Remitly;Western Union|westernunion.com;Zerodha;Groww;Upstox;CRED|cred.club;Google Pay|pay.google.com;Bluevine;Coinbase;Binance;Kraken;Chargebee;Paddle;Instamojo;Juspay|juspay.in;ClearTax|cleartax.in;Vyapar|vyaparapp.in;Khatabook",
+
       "Business Tools": "Notion|notion.com;Trello;Asana;Slack;Zoom;Calendly;Loom;Airtable;Monday|monday.com;ClickUp|clickup.com;Mailchimp;HubSpot;Grammarly;Hootsuite;Buffer;Typeform;Tally|tally.so;Salesforce;Dropbox;Box;Google Workspace|workspace.google.com;Microsoft 365|microsoft.com/microsoft-365;Evernote;Todoist;Miro;Lucidchart;Basecamp;Wrike;Smartsheet;Jira|atlassian.com/software/jira;Zendesk;Freshworks;Intercom;Descript;Riverside|riverside.fm;Otter|otter.ai;Fireflies|fireflies.ai;Semrush;Ahrefs;Moz;SurveyMonkey;Jotform;ConvertKit|kit.com;ActiveCampaign;Brevo;Klaviyo;Constant Contact|constantcontact.com;AWeber;GetResponse;Later;Sprout Social|sproutsocial.com;DocuSign;PandaDoc;Dubsado;Toggl|toggl.com;Harvest|getharvest.com;Clockify;1Password|1password.com;Bitwarden;Proton|proton.me;Gmail|mail.google.com;Outlook|outlook.com;Yahoo",
+
       "Companies": "Google;Microsoft;Apple;Meta;Adobe;Oracle;IBM;Intel;NVIDIA;AMD;Samsung;Sony;Tesla;Netflix;Spotify;Nike;Adidas;IKEA;Tata|tata.com;Reliance|ril.com;Infosys;Wipro;TCS|tcs.com;HCLTech|hcltech.com;Tech Mahindra|techmahindra.com;Disney;Hotstar;Prime Video|primevideo.com;Max|max.com;Hulu;Paramount+|paramountplus.com;Apple Music|music.apple.com;YouTube Music|music.youtube.com;Gaana;JioSaavn|jiosaavn.com;Xbox;PlayStation|playstation.com;Nintendo;Ubisoft;EA|ea.com;Riot Games|riotgames.com;Supercell;Garena;Zynga;Dream11|dream11.com;Oppo;Vivo;Xiaomi|mi.com;OnePlus|oneplus.com;Realme;Motorola;Nokia;Dell;HP|hp.com;Lenovo;Asus;Acer;Logitech;Bose;JBL|jbl.com"
     };
+
     const BLURB = {
-      "Freelance": "Find clients and paid projects.",
-      "Jobs": "Browse openings and apply.",
-      "Gig & Travel": "Earn from rides, delivery, tasks or hosting.",
-      "Design & Creative": "Show or sell creative work.",
-      "Sell Online": "Open a store and reach buyers.",
-      "Digital Products": "Sell templates, courses, books or apps.",
-      "Developers": "Build, host and share code.",
-      "Content & Social": "Grow an audience with your content.",
-      "Learn & Teach": "Take courses or teach your skill.",
-      "Money": "Get paid, invoice or manage money.",
-      "Business Tools": "Run your work day to day.",
-      "Companies": "Create an account with a major brand."
+      "Freelance": "Find clients, projects and independent work opportunities.",
+      "Jobs": "Explore job opportunities and career platforms.",
+      "Gig & Travel": "Discover travel, delivery, mobility and task services.",
+      "Design & Creative": "Explore creative tools, portfolios and design platforms.",
+      "Sell Online": "Discover online marketplaces and selling platforms.",
+      "Digital Products": "Explore platforms for selling digital products and content.",
+      "Developers": "Discover developer tools, coding communities and cloud platforms.",
+      "Content & Social": "Explore content publishing and social networking platforms.",
+      "Learn & Teach": "Discover learning platforms, courses and teaching resources.",
+      "Money": "Explore payment, financial and business money-management services.",
+      "Business Tools": "Discover tools for productivity, communication and business operations.",
+      "Companies": "Explore websites of established companies and brands."
     };
+
+    const PAGE_SIZE = 60;
 
     const seen = new Set();
     const platforms = [];
-    Object.entries(RAW).forEach(([cat, list]) => {
+
+    Object.entries(RAW).forEach(([category, list]) => {
       list.split(";").forEach(item => {
-        const [name, domain] = item.split("|");
+        const parts = item.split("|");
+        const name = parts[0].trim();
+        const suppliedDomain = (parts[1] || "").trim();
+
         const key = name.toLowerCase();
+
         if (seen.has(key)) return;
         seen.add(key);
-        const host = domain || name.toLowerCase().replace(/[^a-z0-9]/g, "") + ".com";
-        let h = 0;
-        for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) % 360;
-        platforms.push({ name, cat, url: "https://" + host, desc: BLURB[cat], color: "hsl(" + h + " 50% 38%)" });
+
+        /*
+          IMPORTANT:
+          The supplied domain is retained as a candidate.
+          It is never opened unless the exact name is added
+          to VERIFIED_URLS after manual verification.
+        */
+
+        const verifiedUrl = VERIFIED_URLS[name] || null;
+
+        let hash = 0;
+        for (const character of name) {
+          hash = (hash * 31 + character.charCodeAt(0)) % 360;
+        }
+
+        platforms.push({
+          name,
+          category,
+          suppliedDomain,
+          url: verifiedUrl,
+          description: BLURB[category],
+          color: `hsl(${hash} 50% 38%)`
+        });
       });
     });
 
-    const PAGE = 60;
-    let shown = PAGE;
     const wall = document.getElementById("wall");
     const filters = document.getElementById("filters");
     const search = document.getElementById("search");
     const empty = document.getElementById("empty");
     const more = document.getElementById("more");
     const count = document.getElementById("count");
-    let activeCat = "All";
+
+    let activeCategory = "All";
+    let shown = PAGE_SIZE;
+
+    function createElement(tag, className, text) {
+      const element = document.createElement(tag);
+
+      if (className) element.className = className;
+      if (text !== undefined) element.textContent = text;
+
+      return element;
+    }
 
     function render() {
-      const q = search.value.trim().toLowerCase();
-      const list = platforms.filter(p =>
-        (activeCat === "All" || p.cat === activeCat) &&
-        (p.name + " " + p.cat).toLowerCase().includes(q)
-      );
-      wall.innerHTML = "";
-      list.slice(0, shown).forEach(p => {
-        const card = document.createElement("article");
-        card.className = "card";
-        card.innerHTML =
-          '<div class="top"><div class="mark" style="background:' + p.color + '">' + p.name[0] + '</div>' +
-          '<div><h3>' + p.name + '</h3><div class="tag">' + p.cat + '</div></div></div>' +
-          '<p>' + p.desc + '</p>' +
-          '<a href="' + p.url + '" target="_blank" rel="noopener noreferrer">Sign up</a>';
+      const query = search.value.trim().toLowerCase();
+
+      const list = platforms.filter(platform => {
+        const matchesCategory =
+          activeCategory === "All" ||
+          platform.category === activeCategory;
+
+        const searchable =
+          `${platform.name} ${platform.category} ${platform.description}`
+            .toLowerCase();
+
+        return matchesCategory && searchable.includes(query);
+      });
+
+      wall.replaceChildren();
+
+      list.slice(0, shown).forEach(platform => {
+        const card = createElement("article", "card");
+
+        const top = createElement("div", "card-top");
+        const mark = createElement("div", "mark", platform.name.charAt(0));
+        mark.style.background = platform.color;
+        mark.setAttribute("aria-hidden", "true");
+
+        const details = document.createElement("div");
+        const heading = createElement("h3", "", platform.name);
+        const tag = createElement("div", "tag", platform.category);
+
+        details.append(heading, tag);
+        top.append(mark, details);
+
+        const description = createElement(
+          "p",
+          "",
+          platform.description
+        );
+
+        card.append(top, description);
+
+        if (platform.url) {
+          const status = createElement(
+            "span",
+            "status verified",
+            "✓ Destination marked as verified"
+          );
+
+          const link = createElement(
+            "a",
+            "visit",
+            "Visit website →"
+          );
+
+          link.href = platform.url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.setAttribute(
+            "aria-label",
+            `Visit the official website for ${platform.name}`
+          );
+
+          card.append(status, link);
+        } else {
+          const status = createElement(
+            "span",
+            "status",
+            "Link awaiting verification"
+          );
+
+          const unavailable = createElement(
+            "span",
+            "unavailable",
+            "Website destination is not currently available."
+          );
+
+          card.append(status, unavailable);
+        }
+
         wall.appendChild(card);
       });
-      count.textContent = list.length + " platforms";
-      more.style.display = list.length > shown ? "inline-block" : "none";
-      empty.style.display = list.length ? "none" : "block";
+
+      count.textContent =
+        `Showing ${Math.min(list.length, shown)} of ${list.length} websites`;
+
+      more.style.display =
+        list.length > shown ? "inline-block" : "none";
+
+      empty.style.display =
+        list.length ? "none" : "block";
     }
 
     function buildFilters() {
-      const cats = ["All", ...new Set(platforms.map(p => p.cat))];
-      cats.forEach(c => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.textContent = c;
-        if (c === activeCat) b.classList.add("active");
-        b.addEventListener("click", () => {
-          activeCat = c; shown = PAGE;
-          filters.querySelectorAll("button").forEach(x => x.classList.toggle("active", x === b));
+      const categories = [
+        "All",
+        ...Object.keys(RAW)
+      ];
+
+      categories.forEach(category => {
+        const button = createElement(
+          "button",
+          category === activeCategory ? "active" : "",
+          category
+        );
+
+        button.type = "button";
+        button.setAttribute(
+          "aria-pressed",
+          category === activeCategory ? "true" : "false"
+        );
+
+        button.addEventListener("click", () => {
+          activeCategory = category;
+          shown = PAGE_SIZE;
+
+          filters.querySelectorAll("button").forEach(item => {
+            const active = item.textContent === category;
+            item.classList.toggle("active", active);
+            item.setAttribute("aria-pressed", String(active));
+          });
+
           render();
         });
-        filters.appendChild(b);
+
+        filters.appendChild(button);
       });
     }
 
-    // Dark mode, remembered between visits
-    const root = document.documentElement;
-    const btn = document.getElementById("themeBtn");
-    function setTheme(t) {
-      root.setAttribute("data-theme", t);
-      btn.textContent = t === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
-      try { localStorage.setItem("wall-theme", t); } catch (e) {}
-    }
-    let saved = null;
-    try { saved = localStorage.getItem("wall-theme"); } catch (e) {}
-    setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
-    btn.addEventListener("click", () => setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
+    // Theme preference
 
-    search.addEventListener("input", () => { shown = PAGE; render(); });
-    more.addEventListener("click", () => { shown += PAGE; render(); });
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const root = document.documentElement;
+    const themeButton = document.getElementById("themeBtn");
+
+    function setTheme(theme) {
+      root.setAttribute("data-theme", theme);
+
+      themeButton.textContent =
+        theme === "dark" ? "☀️ Light mode" : "🌙 Dark mode";
+
+      try {
+        localStorage.setItem("wall-theme", theme);
+      } catch (error) {
+        // Theme still works for the current page session.
+      }
+    }
+
+    let savedTheme = null;
+
+    try {
+      savedTheme = localStorage.getItem("wall-theme");
+    } catch (error) {}
+
+    const preferredTheme =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+    setTheme(savedTheme || preferredTheme);
+
+    themeButton.addEventListener("click", () => {
+      const nextTheme =
+        root.getAttribute("data-theme") === "dark"
+          ? "light"
+          : "dark";
+
+      setTheme(nextTheme);
+    });
+
+    // Search and pagination
+
+    search.addEventListener("input", () => {
+      shown = PAGE_SIZE;
+      render();
+    });
+
+    more.addEventListener("click", () => {
+      shown += PAGE_SIZE;
+      render();
+    });
+
+    // Submission and reporting forms
+
+    function configureFormLink(
+      url,
+      linkId,
+      unavailableId
+    ) {
+      const link = document.getElementById(linkId);
+      const unavailable = document.getElementById(unavailableId);
+
+      if (
+        url &&
+        /^https:\/\/(docs\.google\.com\/forms|forms\.gle)\//i.test(url)
+      ) {
+        link.href = url;
+        link.hidden = false;
+        unavailable.hidden = true;
+      }
+    }
+
+    configureFormLink(
+      SUBMISSION_FORM_URL,
+      "submitLink",
+      "submitUnavailable"
+    );
+
+    configureFormLink(
+      REPORT_FORM_URL,
+      "reportLink",
+      "reportUnavailable"
+    );
+
+    // Footer year
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Initialize the directory
+
     buildFilters();
     render();
+
   </script>
 </body>
 </html>

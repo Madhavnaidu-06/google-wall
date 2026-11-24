@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellcome To The Wall </title>
-  <meta name="description" content="A wall of sign-up links at one marketplaces, portfolios and networks.">
+  <meta name="description" content="A wall of sign-up links for freelance marketplaces, portfolios and networks.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
@@ -92,46 +92,20 @@
 
     footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); font-size: .9rem; }
 
-
-    .brand { display: flex; flex-direction: column; line-height: 1.2; }
-    .brand-name { font-weight: 800; font-size: 1.45rem; letter-spacing: -.04em; }
-    .brand-by { color: var(--muted); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; margin-top: 5px; }
-    .eyebrow { display: inline-block; color: var(--accent); font-size: .82rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 14px; }
-    .search-hint { color: var(--muted); font-size: .9rem; margin: 8px 2px 0; }
-    .section-heading { margin: 35px 0 12px; font-size: 1.25rem; letter-spacing: -.02em; }
-    .info-section { border-top: 1px solid var(--line); padding: 45px 0; }
-    .info-section h2 { font-size: clamp(1.5rem, 4vw, 2rem); letter-spacing: -.035em; margin: 0 0 12px; }
-    .info-section p { color: var(--muted); max-width: 700px; margin: 0 0 16px; }
-    .info-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-top: 16px; }
-    .info-card h3 { margin: 0 0 8px; }
-    .info-card p { font-size: .92rem; margin: 0 0 12px; }
-    .info-link { display: inline-block; margin-top: 5px; font-weight: 700; color: var(--accent); text-decoration: none; }
-    .info-link:hover { text-decoration: underline; }
-    .unavailable { font-size: .85rem; color: var(--muted); }
-    .notice { border: 1px solid var(--line); border-radius: 10px; padding: 15px; font-size: .88rem; color: var(--muted); margin: 0 0 0; }
-    footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
-    footer p { margin: 6px 0; }
-    .footer-brand { font-weight: 700; color: var(--text); }
-
     @media (max-width: 520px) { .card:nth-child(even) { margin-top: 0; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div class="brand">
-        <div class="brand-name">The Wall</div>
-        <div class="brand-by">A product by AIM</div>
-      </div>
+      <div class="logo">The Wall</div>
       <button id="themeBtn" type="button" aria-label="Switch between light and dark mode">🌙 Dark mode</button>
     </header>
 
     <section class="hero">
-      <span class="eyebrow">Explore the digital world</span>
-      <h1>Discover more. Explore everything.</h1>
-      <p>Find useful websites, platforms and digital services from around the world — all in one place. Explore, discover and connect with opportunities across different categories.</p>
-      <input id="search" type="search" placeholder="Search websites, services or categories..." aria-label="Search websites, services or categories">
-      <p class="search-hint">Search by platform name or category.</p>
+      <h1>Every place to start freelancing, on one wall.</h1>
+      <p>Pick a platform, sign up, and get your first client. Search by name or filter by what you do.</p>
+      <input id="search" type="search" placeholder="Search platforms…" aria-label="Search platforms">
     </section>
 
     <nav class="filters" id="filters" aria-label="Categories"></nav>
@@ -143,46 +117,9 @@
       <p id="empty">No platforms match your search. Try a different word or choose “All”.</p>
     </main>
 
-
-    <section class="info-section" id="about">
-      <h2>About The Wall</h2>
-      <p>The Wall is a global website-discovery directory designed to make finding useful online platforms easier. Explore websites across different industries, interests and services from one simple destination.</p>
-      <p>Our mission is to make the digital world easier to explore and help people discover platforms, services and opportunities that can help them grow.</p>
-      <p>The Wall is a product initiative under <strong>AIM – Advanced Idea Mechanism.</strong></p>
-    </section>
-
-    <section class="info-section" id="submit">
-      <h2>List your website</h2>
-      <p>Do you own a website or online platform? We welcome website listing suggestions from businesses, creators and developers around the world.</p>
-      <div class="info-card">
-        <h3>Submit your website</h3>
-        <p>Website submissions will be reviewed before publication. We may verify ownership, relevance and the official destination before adding a listing.</p>
-        <span class="unavailable">Submission form is being prepared.</span>
-      </div>
-    </section>
-
-    <section class="info-section" id="report">
-      <h2>Help us keep The Wall accurate</h2>
-      <p>Found a broken link, incorrect website address or misleading listing? We want to know.</p>
-      <div class="info-card">
-        <h3>Report a website</h3>
-        <p>Reports help us review and improve the accuracy of our directory.</p>
-        <span class="unavailable">Reporting form is being prepared.</span>
-      </div>
-    </section>
-
-    <div class="notice">
-      <strong>Important information:</strong>
-      The Wall is a discovery directory, not the owner or operator of the listed third-party websites.
-      Website availability, pricing, registration rules and services may change. Always check the
-      official website before sharing information or making payments.
-    </div>
-
     <footer>
-      <p class="footer-brand">The Wall — Discover more. Explore everything.</p>
-      <p>A product by AIM – Advanced Idea Mechanism.</p>
-      <p>© <span id="year"></span> The Wall. All rights reserved.</p>
-      <p><a href="#about">About</a> · <a href="#submit">Submit a website</a> · <a href="#report">Report an issue</a></p>
+      <p>Links go to each platform’s official site. Sign-up rules and fees change, so check each site before you join.</p>
+      <p>© <span id="year"></span> The Wall</p>
     </footer>
   </div>
 
